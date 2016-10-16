@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>school-api</title>
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<div id="grades"></div>
+	<button id="buttonGrades">Get Grades</button>
+
+	<script>
+		function getGrades() {
+			$.get("/grades", function(response) {
+				$('#grades').text(response);
+			});
+		}
+
+	$( "#buttonGrades" ).click(getGrades);
+
+	// add class
+
+
+
+	</script>
+
+</body>
+</html>
