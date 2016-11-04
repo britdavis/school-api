@@ -16,7 +16,7 @@ var homework =
 	algebra: true,
 	"p.e" : false,
 	english: true,
-}	
+};	
 
 var server = http.createServer((req,res) => {
 	if (req.url === "/index.html") {
