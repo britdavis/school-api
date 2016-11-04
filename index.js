@@ -2,6 +2,7 @@
 
 var http = require("http");
 var fs = require("fs");
+var url = require("url");
 
 var grades = 
 {
@@ -9,6 +10,13 @@ var grades =
     "p.e." : "C",
     english : "B"
 };
+
+var homework =
+{
+	algebra: true,
+	"p.e" : false,
+	english: true,
+}	
 
 var server = http.createServer((req,res) => {
 	if (req.url === "/index.html") {
@@ -18,6 +26,16 @@ var server = http.createServer((req,res) => {
 		});
 	} else if(req.url === "/grades") {
 		res.write(JSON.stringify(grades));
+		res.end();
+
+	} else if(req.url === "/homework/test") {
+		// var test = homework.algebra[0];
+		var pathname = url.parse(request.url).pathname;
+		res.write(JSON.stringify(homework[pathname]));
+		res.end();
+
+	} else if(req.url === "/homework") {
+		res.write(JSON.stringify(homework));
 		res.end();
 
 	
@@ -37,10 +55,11 @@ var server = http.createServer((req,res) => {
 			req.on('end', function() {
 				// need to change this to add class to grades object
 				//fortunes.push(queryData);
-				// grades.queryData = ""; <-- doesn't work
+				grades[queryData] = ""; 
+				homework[queryData] = false;
 			});
 
-		}	else if(req.url === "/schedule") {
+	} else if(req.url === "/schedule") {
 		fs.readFile("schedule.html", (err, data) => {
 			res.write(data);
 			res.write(JSON.stringify(Object.keys(grades)));
