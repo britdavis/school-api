@@ -9,6 +9,15 @@
 	<div id="grades"></div>
 	<button id="buttonGrades">Get Grades</button>
 
+	<div id="homework"></div>
+	<button id="buttonHomework">Get Homework</button>
+
+	<div id="schedule"></div>
+	<button id="buttonSchedule">Get Schedule</button></br>
+
+	<input id="addClass" />
+	<button id="sendAddClass">Add Class</button>	
+
 	<script>
 		function getGrades() {
 			$.get("/grades", function(response) {
@@ -16,7 +25,42 @@
 			});
 		}
 
-	$( "#buttonGrades" ).click(getGrades);
+		function getHomework() {
+			$.get("/homework", function(response) {
+				$('#homework').text(response);
+			});
+		}
+
+		function getSchedule() {
+			$.get("/schedule", function(response) {
+				$('#schedule').text(response);
+			});
+		}
+
+		function sendNewClass(classToCreate) {
+			$.post("/schedule", classToCreate, function(response) {
+				// do nothing
+			});
+		}
+
+
+		$("#sendAddClass").click(function() {
+			sendNewClass($("#addClass").val());
+			getGrades();
+			getHomework();
+			getSchedule();
+			// window.location.reload();
+			});		
+
+
+		$( "#buttonGrades" ).click(getGrades);	
+
+		$( "#buttonHomework" ).click(getHomework);
+
+		$( "#buttonSchedule" ).click(getSchedule);
+
+
+
 
 	// add class
 

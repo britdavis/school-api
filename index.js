@@ -30,7 +30,8 @@ var server = http.createServer((req,res) => {
 
 	} else if(req.url === "/homework/test") {
 		// var test = homework.algebra[0];
-		var pathname = url.parse(request.url).pathname;
+		var pathname = url.parse(req.url).pathname.substr(1);
+		console.log(pathname);
 		res.write(JSON.stringify(homework[pathname]));
 		res.end();
 
@@ -60,11 +61,17 @@ var server = http.createServer((req,res) => {
 			});
 
 	} else if(req.url === "/schedule") {
-		fs.readFile("schedule.html", (err, data) => {
-			res.write(data);
+	// 	fs.readFile("schedule.html", (err, data) => {
+	// 		res.write(data);
 			res.write(JSON.stringify(Object.keys(grades)));
 			res.end();
-	});
+	// });
+
+	// 	fs.readFile("schedule.html", (err, data) => {
+	// 		res.write(data);
+	// 		res.write(JSON.stringify(Object.keys(grades)));
+	// 		res.end();
+	// });
 		
 
 	
