@@ -5,7 +5,7 @@
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<h2>New CodeCraft Student Portal </h2>
 	<div id="grades"></div>
 	<button id="buttonGrades">Get Grades</button>
 
@@ -16,7 +16,10 @@
 	<button id="buttonSchedule">Get Schedule</button></br>
 
 	<input id="addClass" />
-	<button id="sendAddClass">Add Class</button>	
+	<button id="sendAddClass">Add Class</button></br>	
+
+	<input id="postHomework" />
+	<button id="buttonPostHomework">Post Homework</button>
 
 	<script>
 		function getGrades() {
@@ -49,9 +52,20 @@
 			getGrades();
 			getHomework();
 			getSchedule();
+			$("#addClass").val("");
 			// window.location.reload();
-			});		
+			});	
 
+		function postHomework() {
+			var className = $("#postHomework").val();
+				$.post("/homework", className, function(response) {
+			getGrades();
+			getHomework();
+			getSchedule();
+			$("#postHomework").val("");
+			});
+
+		}	
 
 		$( "#buttonGrades" ).click(getGrades);	
 
@@ -59,12 +73,9 @@
 
 		$( "#buttonSchedule" ).click(getSchedule);
 
-
-
+		$( "#buttonPostHomework" ).click(postHomework);
 
 	// add class
-
-
 
 	</script>
 
