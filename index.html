@@ -42,7 +42,6 @@
 
 		function sendNewClass(classToCreate) {
 			$.post("/schedule", classToCreate, function(response) {
-				// do nothing
 			});
 		}
 
@@ -53,7 +52,6 @@
 			getHomework();
 			getSchedule();
 			$("#addClass").val("");
-			// window.location.reload();
 			});	
 
 		function postHomework() {
@@ -64,7 +62,6 @@
 			getSchedule();
 			$("#postHomework").val("");
 			});
-
 		}	
 
 		$( "#buttonGrades" ).click(getGrades);	
@@ -74,8 +71,6 @@
 		$( "#buttonSchedule" ).click(getSchedule);
 
 		$( "#buttonPostHomework" ).click(postHomework);
-
-	// add class
 
 	</script>
 

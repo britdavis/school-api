@@ -5,43 +5,43 @@ var fs = require("fs");
 var url = require("url");
 
 var grades = 
-{
+	{
     algebra : "A",
     "p.e." : "C",
     english : "B"
-};
+	};
 
 var homework =
-{
+	{
 	algebra: true,
 	"p.e" : false,
 	english: true,
-};	
+	};	
 
 var server = http.createServer((req,res) => {
 	if (req.url === "/" || req.url === "/index.html") {
 		fs.readFile("index.html", (err, data) => {
 			res.write(data);
 			res.end();
-		});
+	});
 
 
 
-	} else if(req.url === "/grades") {
+	} else if (req.url === "/grades") {
 		res.write(JSON.stringify(grades));
 		res.end();
 
-	} else if(req.url === "/homework" && req.method === "POST") {
+	} else if (req.url === "/homework" && req.method === "POST") {
 		var queryData = "";
 
-			req.on('data', function(data) {
-				queryData += data;
-				if(queryData.length > 1e6) {
-					queryData = "";
-					res.writeHead(413, {'Content-Type': 'text/plain'}).end();
-					req.connection.destroy();
-				}
-			});
+		req.on('data', function(data) {
+			queryData += data;
+			if(queryData.length > 1e6) {
+				queryData = "";
+				res.writeHead(413, {'Content-Type': 'text/plain'}).end();
+				req.connection.destroy();
+			}
+		});
 
 			req.on('end', function() {
 				grades[queryData] = "C"; 
@@ -51,13 +51,11 @@ var server = http.createServer((req,res) => {
 			});
 
 
-	} else if(req.url === "/homework") {
+	} else if (req.url === "/homework") {
 		res.write(JSON.stringify(homework));
 		res.end();
 
-	
-
-	} else if(req.url ==="/schedule" && req.method ==="POST") {
+	} else if (req.url ==="/schedule" && req.method ==="POST") {
 			var queryData = "";
 
 			req.on('data', function(data) {
@@ -76,23 +74,12 @@ var server = http.createServer((req,res) => {
 				homework[queryData] = false;
 				res.write("success");
 				res.end();
-			});
+		});
 
-	} else if(req.url === "/schedule") {
-	// 	fs.readFile("schedule.html", (err, data) => {
-	// 		res.write(data);
+	} else if (req.url === "/schedule") {
 			res.write(JSON.stringify(Object.keys(grades)));
 			res.end();
-	// });
-
-	// 	fs.readFile("schedule.html", (err, data) => {
-	// 		res.write(data);
-	// 		res.write(JSON.stringify(Object.keys(grades)));
-	// 		res.end();
-	// });
 		
-
-	
 	} else {
 		res.write("This is Brit's school-api server");
 		res.end();
